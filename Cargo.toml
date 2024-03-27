@@ -1,0 +1,16 @@
+[package]
+name = "omango-wyhash"
+version = "0.1.0"
+authors = ["Trung Tran <tqtrungse@gmail.com>"]
+edition = "2021"
+description = "Wang Yi hash for Rust"
+license = "MIT"
+repository = "https://github.com/tqtrungse/omango-wyhash"
+homepage = "https://github.com/tqtrungse/omango-wyhash"
+documentation = "https://docs.rs/omango-wyhash"
+keywords = ["wyhash", "hash"]
+categories = ["algorithms"]
+
+[dependencies]
+omango-util = "0.1.0"
+lazy_static = {version = "1.4.0"}

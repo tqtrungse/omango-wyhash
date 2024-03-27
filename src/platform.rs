@@ -35,13 +35,12 @@ pub(crate) fn mum(a: u64, b: u64) -> (u64, u64) {
         c = 1;
     }
 
-    let lo = t + (rm1 << 32);
+    let lo = t.wrapping_add((rm1 << 32));
     if lo < t {
         c += 1;
     }
-    let hi = rh + (rm0 >> 32) + (rm1 >> 32) + c;
 
-    (lo, hi)
+    (lo, rh.wrapping_add((rm0 >> 32) + (rm1 >> 32) + c))
 }
 
 #[cfg(any(target_os = "windows", target_endian = "little"))]

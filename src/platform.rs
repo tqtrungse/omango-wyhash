@@ -29,7 +29,7 @@ pub(crate) fn mum(a: u64, b: u64) -> (u64, u64) {
     let rm0 = ha * lb;
     let rm1 = hb * la;
     let rl = la * lb;
-    let t = rl + (rm0 << 32);
+    let t = rl.wrapping_add((rm0 << 32));
     let mut c: u64 = 0;
     if t < rl {
         c = 1;

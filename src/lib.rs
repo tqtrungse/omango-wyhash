@@ -128,7 +128,6 @@ pub fn make_secret(seed: u64, out: &mut [u64]) {
             }
 
             if out[i] % 2 == 0 {
-                ok = false;
                 continue;
             }
 

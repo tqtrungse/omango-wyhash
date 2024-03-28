@@ -81,7 +81,7 @@ pub fn hash(key: &[u8], seed: u64, secret: &[u64]) -> u64 {
             }
             see ^= see1 ^ see2;
         }
-        
+
         while unlikely(i > 16) {
             see = mix(r8(p) ^ secret[1], r8(&p[8..]) ^ see);
             p = &p[16..];
@@ -99,7 +99,7 @@ pub fn hash(key: &[u8], seed: u64, secret: &[u64]) -> u64 {
 }
 
 /// Make your own secret.
-/// 
+///
 /// Own secret must have the same length of default secret is 4.
 #[inline(always)]
 pub fn make_secret(seed: u64, out: &mut [u64]) {
@@ -124,16 +124,16 @@ pub fn make_secret(seed: u64, out: &mut [u64]) {
             out[i] = 0;
 
             for j in (0..64).step_by(8) {
-                out[i] |= (c[(rand(&mut see) % (std::mem::size_of_val(&c) as u64)) as usize] as u64) << j;
+                out[i] |= (c[(unsafe { rand(&mut see) } % (std::mem::size_of_val(&c) as u64)) as usize] as u64) << j;
             }
-            
+
             if out[i] % 2 == 0 {
                 ok = false;
                 continue;
             }
 
             for j in (0..i).step_by(1) {
-                if (out[j]^out[i]).count_ones() != 32 {
+                if (out[j] ^ out[i]).count_ones() != 32 {
                     ok = false;
                     break;
                 }
@@ -142,7 +142,7 @@ pub fn make_secret(seed: u64, out: &mut [u64]) {
             if ok && !is_prime(out[i]) {
                 ok = false;
             }
-            
+
             if ok {
                 break;
             }
@@ -160,11 +160,9 @@ pub fn hash64(a: u64, b: u64) -> u64 {
 
 /// The rand PRNG that pass BigCrush and PractRand.
 #[inline(always)]
-pub fn rand(seed: *mut u64) -> u64 {
-    unsafe {
-        *seed += SECRET[0];
-        mix(*seed, (*seed) ^ SECRET[1])
-    }
+pub unsafe fn rand(seed: *mut u64) -> u64 {
+    *seed += SECRET[0];
+    mix(*seed, (*seed) ^ SECRET[1])
 }
 
 /// Convert any 64-bit pseudo random numbers to uniform distribution [0,1). 
@@ -205,7 +203,7 @@ mod test {
             "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
             "12345678901234567890123456789012345678901234567890123456789012345678901234567890",
         ];
-        
+
         let mut h: u64;
         for i in (0..7).step_by(1) {
             h = hash(messages[i].as_bytes(), i as u64, SECRET.as_slice());

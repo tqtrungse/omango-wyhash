@@ -155,7 +155,7 @@ pub fn make_secret(seed: u64, out: &mut [u64]) {
 #[inline(always)]
 pub fn hash64(a: u64, b: u64) -> u64 {
     let (lo, hi) = mum(a ^ SECRET[0], b ^ SECRET[1]);
-    return mix(lo ^ SECRET[0], hi ^ SECRET[1]);
+    mix(lo ^ SECRET[0], hi ^ SECRET[1])
 }
 
 /// The rand PRNG that pass BigCrush and PractRand.
@@ -188,7 +188,7 @@ pub fn to_gau(r: u64) -> f64 {
 #[inline(always)]
 pub fn to_u0k(r: u64, k: u64) -> u64 {
     let (_, hi) = mum(r, k);
-    return hi;
+    hi
 }
 
 mod test {

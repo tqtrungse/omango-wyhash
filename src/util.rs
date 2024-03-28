@@ -62,7 +62,7 @@ fn mul_mod(a: u64, b: u64, m: u64) -> u64 {
             _a = a2 % m;
         }
     }
-    return r;
+    r
 }
 
 #[inline(always)]
@@ -81,7 +81,7 @@ fn pow_mod(a: u64, b: u64, m: u64) -> u64 {
             _a = mul_mod(_a, _a, m);
         };
     }
-    return r;
+    r
 }
 
 fn sprp(n: u64, a: u64) -> bool {

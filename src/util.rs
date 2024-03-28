@@ -1,11 +1,6 @@
 use crate::platform::mum;
 
 #[inline(always)]
-pub(crate) fn ror(x: u64) -> u64 {
-    (x >> 32) | (x << 32)
-}
-
-#[inline(always)]
 pub(crate) fn mix(a: u64, b: u64) -> u64 {
     let (lo, hi) = mum(a, b);
     lo ^ hi

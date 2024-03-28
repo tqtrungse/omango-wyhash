@@ -34,7 +34,7 @@ It provides
 Add this to your `Cargo.toml`:
 ```toml
 [dependencies]
-omango-wyhash = "0.1.1"
+omango-wyhash = "0.1.2"
 ```
 
 ## Compatibility

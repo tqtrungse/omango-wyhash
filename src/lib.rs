@@ -158,6 +158,33 @@ pub fn hash64(a: u64, b: u64) -> u64 {
 }
 
 /// The rand PRNG that pass BigCrush and PractRand.
+/// # Safety
+///
+/// This function is unsafe because it operates on raw pointers and
+/// assumes that the caller guarantees the following:
+///
+/// - `ptr` must be a valid mutable pointer to a valid memory location.
+/// - The memory referenced by `ptr` must not be concurrently accessed
+///   or modified by any other code.
+/// - The caller must ensure that the pointer is not null.
+/// - The caller must ensure that the lifetime of the referenced data
+///   exceeds the lifetime of the pointer.
+///
+/// Violating these requirements can lead to undefined behavior, including
+/// memory unsafely, data races, and program crashes.
+///
+/// # Examples
+///
+/// ```
+/// use omango_wyhash::rand;
+///
+/// let mut data = 42u64;
+/// let ptr = &mut data as *mut u64;
+/// let result: u64;
+/// unsafe {
+///     result = rand(ptr);
+/// }
+/// ```
 #[inline(always)]
 pub unsafe fn rand(seed: *mut u64) -> u64 {
     *seed += SECRET[0];

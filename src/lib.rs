@@ -189,8 +189,6 @@ pub fn to_u0k(r: u64, k: u64) -> u64 {
 }
 
 mod test {
-    use crate::{hash, SECRET};
-
     #[test]
     fn test_vector() {
         let messages: [&str; 7] = [
@@ -205,7 +203,7 @@ mod test {
 
         let mut h: u64;
         for i in (0..7).step_by(1) {
-            h = hash(messages[i].as_bytes(), i as u64, SECRET.as_slice());
+            h = crate::hash(messages[i].as_bytes(), i as u64, crate::SECRET.as_slice());
             println!("{}-{}", h, messages[i]);
         }
     }

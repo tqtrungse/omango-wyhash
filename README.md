@@ -34,12 +34,12 @@ It provides
 Add this to your `Cargo.toml`:
 ```toml
 [dependencies]
-omango-wyhash = "0.1.2"
+omango-wyhash = "0.1.3"
 ```
 
 ## Compatibility
 
-The minimum supported Rust version is 1.49.
+The minimum supported Rust version is `1.57`.
 
 ## License
 
